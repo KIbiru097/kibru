@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Kibruyisfa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+    
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Port<span>folio</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="skills.html">Skills</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page">
+        <div class="container">
+            <div class="page-content">
+                <h1 class="page-title">About Me</h1>
+                <p class="page-description">Get to know more about my background, experience, and passion for development</p>
+                
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="Myphoto.jpg" alt="My photo">
+                    </div>
+                   
+
+                    <div class="about-text">
+                        <h3>I'm a Passionate Full Stack Developer</h3>
+                        <p>Hello! I'm Kibruisfa Misganaw, a dedicated full stack developer with over 3 years of experience building web applications. I specialize in creating responsive, user-friendly interfaces and robust backend systems.</p>
+                        <p>My journey in web development started during my computer science studies, and I've been constantly learning and adapting to new technologies ever since. I enjoy solving complex problems and turning ideas into reality through code.</p>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <h4>20+</h4>
+                                <p>Projects Completed</p>
+                            </div>
+                            <div class="stat">
+                                <h4>3+</h4>
+                                <p>Years Experience</p>
+                            </div>
+                            <div class="stat">
+                                <h4>15+</h4>
+                                <p>Happy Clients</p>
+                            </div>
+                            <div class="stat">
+                                <h4>5</h4>
+                                <p>Awards Won</p>
+                            </div>
+            
+                </div>
+            </div>
+        </div>
+         <audio controls>
+  <source src="Aboutme.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+    </section>
+    <script>
+    
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const moonIcon = themeToggle.querySelector('i');
+
+    
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        moonIcon.classList.replace('fa-moon', 'fa-sun');
+    } else if (currentTheme === 'light') {
+        body.classList.remove('dark-mode');
+        moonIcon.classList.replace('fa-sun', 'fa-moon');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+
+        if (body.classList.contains('dark-mode')) {
+            moonIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            moonIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project-Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Port<span>folio</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="skills.html">Skills</a></li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+  
+    <section class="projects-page">
+        <div class="container">
+            <div class="page-content">
+                <h1 class="page-title">My Projects</h1>
+                <p class="page-description">Here are some of my recent works that showcase my skills and experience</p>
+                
+                <div class="projects-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web-design">Web Design</button>
+                    <button class="filter-btn" data-filter="web-app">Web App</button>
+                    <button class="filter-btn" data-filter="mobile-app">Mobile App</button>
+                </div>
+                <div class="projects-grid">
+                  
+                    <div class="project-card active" data-category="web-design">
+                        <div class="project-image">
+                            <img src="FOOD.jpg" alt="E-Commerce Website">
+                        </div>
+                        <div class="project-content">
+                            <h3>Food Recipe</h3>
+                            <p>A full-featured online store with product catalog, shopping cart, and secure payment processing.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">Express</span>
+                                <span class="tech-tag">Postgre</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://example.com" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="https://github.com/KIbiru097/kibru" target="_blank" class="outline"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card active" data-category="web-design">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Portfolio Website">
+                        </div>
+                        <div class="project-content">
+                            <h3>Creative Portfolio</h3>
+                            <p>A modern, responsive portfolio website with smooth animations and interactive elements.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">GSAP</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://example.com" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="https://github.com/KIbiru097/kibru" target="_blank" class="outline"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                    <div class="project-card active" data-category="web-app">
+                        <div class="project-image">
+                            <img src="MOB.jpg" alt="Task Management App">
+                        </div>
+                        <div class="project-content">
+                            <h3>Task Management App</h3>
+                            <p>A productivity application for managing tasks, projects, and team collaboration with real-time updates.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Express</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">Socket.io</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://example.com" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="https://github.com/KIbiru097/kibru" target="_blank" class="outline"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card active" data-category="web-app">
+                        <div class="project-image">
+                            <img src="OIP.webp" alt="Weather Dashboard">
+                        </div>
+                        <div class="project-content">
+                            <h3>Weather Dashboard</h3>
+                            <p>A responsive weather application that displays current conditions and forecasts for multiple locations.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">API</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">Chart.js</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://example.com" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="https://github.com/KIbiru097/kibru" target="_blank" class="outline"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card active" data-category="mobile-app">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Fitness Tracker">
+                        </div>
+                        <div class="project-content">
+                            <h3>Fitness Tracker</h3>
+                            <p>A mobile application for tracking workouts, nutrition, and fitness goals with personalized recommendations.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React Native</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Redux</span>
+                                <span class="tech-tag">Chart.js</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://example.com" target="_blank"><i class="fas fa-external-link-alt"></i> App Store</a>
+                                <a href="https://github.com/KIbiru097/kibru" target="_blank" class="outline"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card active" data-category="mobile-app">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Recipe App">
+                        </div>
+                        <div class="project-content">
+                            <h3>Recipe Finder</h3>
+                            <p>A mobile app for discovering and saving recipes with step-by-step instructions and nutritional information.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Flutter</span>
+                                <span class="tech-tag">Dart</span>
+                                <span class="tech-tag">REST API</span>
+                                <span class="tech-tag">SQLite</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://example.com" target="_blank"><i class="fas fa-external-link-alt"></i> Play Store</a>
+                                <a href="https://github.com/KIbiru097/kibru" target="_blank" class="outline"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <script>
+    
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.innerHTML = navLinks.classList.contains('active') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+    });
+
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.style.background = 'var(--bg-color)';
+            header.style.boxShadow = 'var(--shadow)';
+        } else {
+            header.style.background = 'var(--bg-color)';
+            header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        }
+    });
+
+   
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+   
+    function filterProjects(category) {
+        projectCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            
+            if (category === 'all' || cardCategory === category) {
+                card.style.display = 'block';
+           
+                card.style.animation = 'fadeIn 0.5s ease forwards';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+ 
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+           
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            button.classList.add('active');
+          
+            const filterValue = button.getAttribute('data-filter');
+            
+    
+            filterProjects(filterValue);
+        });
+    });
+
+    filterProjects('all');
+
+    
+    function downloadCV() {
+ 
+        const cvContent = `kibruyisfa - FULL STACK DEVELOPER\n\nCONTACT INFORMATION\nEmail: john.doe@example.com\nPhone: +1 (555) 123-4567\nLocation: New York, NY 10001, USA\nPortfolio: www.johndoeportfolio.com\n\nPROFESSIONAL SUMMARY\nExperienced Full Stack Developer with 3+ years of expertise in building responsive web applications. Proficient in modern frontend and backend technologies with a strong focus on user experience and clean code.\n\nTECHNICAL SKILLS\n- Frontend: HTML5, CSS3, JavaScript, React\n- Backend: Node.js, Express.js, MongoDB, MySQL\n- Tools: Git, GitHub, Figma, Photoshop\n- Other: REST APIs, Responsive Design, Agile Methodologies\n\nEXPERIENCE\nSenior Web Developer | ABC Tech | 2021 - Present\n- Developed and maintained 15+ web applications\n- Collaborated with cross-functional teams to deliver projects on time\n- Implemented responsive designs and optimized performance\n\nWeb Developer | XYZ Solutions | 2019 - 2021\n- Built custom websites for 20+ clients\n- Integrated third-party APIs and payment systems\n- Improved website loading speed by 40%\n\nEDUCATION\nBachelor of Computer Science | University of Technology | 2015 - 2019\n\nPROJECTS\nE-Commerce Platform: Full-featured online store with payment processing\nTask Management App: Productivity application with real-time updates\nWeather Dashboard: Responsive weather application with forecasts\n\nCERTIFICATIONS\n- AWS Certified Developer\n- Google Mobile Web Specialist`;
+        
+        const blob = new Blob([cvContent], { type: 'text/plain' });
+        
+        const url = URL.createObjectURL(blob);
+         
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'John_Doe_CV.txt';
+        document.body.appendChild(a);
+        a.click();
+        
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    }
+</script>
+</body>
+</html>
