@@ -1,0 +1,7 @@
+---
+vyos_routers:
+  platform: "vyos"
+  connection_options:
+    netmiko:
+      extras:
+        device_type: "vyos"

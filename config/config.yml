@@ -1,0 +1,81 @@
+# VyOS Sentinel - Main Configuration
+# -----------------------------------
+
+watcher:
+  # How the watcher connects to VyOS to pull logs
+  mode: "ssh"  # "ssh" (remote pull) or "local" (read local syslog file)
+
+  ssh:
+    host: "192.168.1.1"
+    port: 22
+    username: "vyos"
+    # Prefer key-based auth; set password only if keys are unavailable
+    key_file: "~/.ssh/id_rsa"
+    password: ""
+
+  local:
+    log_path: "/var/log/vyos/vyos.log"
+
+  # Polling interval in seconds (SSH mode)
+  poll_interval: 10
+
+  # Log sources to watch on the VyOS router
+  log_sources:
+    - "/var/log/messages"
+    - "/var/log/conntrackd.log"
+
+  # Conntrack table dump (live connection tracking)
+  conntrack_cmd: "sudo conntrack -L"
+
+judge:
+  # Path to the pre-trained model file (joblib)
+  model_path: "models/traffic_classifier.joblib"
+
+  # Classification confidence threshold (0.0 - 1.0)
+  # Traffic below this threshold is flagged as suspicious
+  confidence_threshold: 0.75
+
+  # Feature columns expected by the model
+  features:
+    - "src_port"
+    - "dst_port"
+    - "protocol"
+    - "packet_count"
+    - "byte_count"
+    - "duration"
+    - "flags_syn"
+    - "flags_ack"
+    - "flags_fin"
+    - "flags_rst"
+
+surgeon:
+  # Nornir inventory location
+  nornir_config: "nornir_config/config.yml"
+
+  # Default firewall rule parameters
+  firewall:
+    rule_set_name: "SENTINEL-BLOCK"
+    default_action: "drop"
+    rule_start_number: 1000
+    rule_increment: 10
+
+  # Auto-rollback after N minutes (0 = no auto-rollback)
+  auto_rollback_minutes: 60
+
+auditor:
+  # Ansible playbook for golden image audit
+  playbook: "ansible/playbooks/audit_golden_image.yml"
+  inventory: "ansible/inventory/hosts.yml"
+
+  # Golden configuration template
+  golden_config: "config/golden_image.yml"
+
+  # Sections of VyOS config to audit
+  audit_sections:
+    - "firewall"
+    - "interfaces"
+    - "protocols"
+    - "service ssh"
+    - "system login"
+    - "system ntp"
+    - "system syslog"

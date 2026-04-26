@@ -1,0 +1,8 @@
+---
+username: "vyos"
+password: "vyos"
+platform: "vyos"
+connection_options:
+  netmiko:
+    extras:
+      device_type: "vyos"

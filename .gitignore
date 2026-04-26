@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Model artifacts (generated, not committed)
+models/*.joblib
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Ansible
+*.retry
+
+# Reports
+/tmp/sentinel_audit_reports/
+
+# Isolation history (runtime)
+models/isolation_history.json
