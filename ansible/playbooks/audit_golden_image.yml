@@ -1,0 +1,196 @@
+---
+# The Auditor – Golden Image compliance playbook for VyOS routers.
+#
+# Usage:
+#   ansible-playbook ansible/playbooks/audit_golden_image.yml
+#
+# What it does:
+#   1. Connects to every VyOS router in inventory.
+#   2. Pulls the running configuration.
+#   3. Compares critical sections against the golden image.
+#   4. Generates a compliance report.
+#   5. Optionally remediates drifted settings (when remediate=true).
+
+- name: "VyOS Golden Image Audit"
+  hosts: vyos_routers
+  gather_facts: false
+
+  vars:
+    golden_config_file: "../../config/golden_image.yml"
+    report_dir: "/tmp/sentinel_audit_reports"
+    remediate: false  # set -e remediate=true to auto-fix drift
+
+  vars_files:
+    - "{{ golden_config_file }}"
+
+  tasks:
+    # ------------------------------------------------------------------
+    # 1. Preparation
+    # ------------------------------------------------------------------
+    - name: Create report directory
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ report_dir }}"
+        state: directory
+        mode: "0755"
+      run_once: true
+
+    # ------------------------------------------------------------------
+    # 2. Gather running configuration
+    # ------------------------------------------------------------------
+    - name: Get full running configuration
+      vyos.vyos.vyos_command:
+        commands:
+          - show configuration commands
+      register: running_config
+
+    - name: Store running config lines
+      ansible.builtin.set_fact:
+        config_lines: "{{ running_config.stdout_lines[0] }}"
+
+    # ------------------------------------------------------------------
+    # 3. Firewall hardening checks
+    # ------------------------------------------------------------------
+    - name: "Check firewall – all-ping enabled"
+      ansible.builtin.set_fact:
+        fw_all_ping: >-
+          {{ config_lines | select('search', "set firewall all-ping 'enable'") | list | length > 0 }}
+
+    - name: "Check firewall – broadcast-ping disabled"
+      ansible.builtin.set_fact:
+        fw_broadcast_ping: >-
+          {{ config_lines | select('search', "set firewall broadcast-ping 'disable'") | list | length > 0 }}
+
+    - name: "Check firewall – syn-cookies enabled"
+      ansible.builtin.set_fact:
+        fw_syn_cookies: >-
+          {{ config_lines | select('search', "set firewall syn-cookies 'enable'") | list | length > 0 }}
+
+    - name: "Check firewall – log-martians enabled"
+      ansible.builtin.set_fact:
+        fw_log_martians: >-
+          {{ config_lines | select('search', "set firewall log-martians 'enable'") | list | length > 0 }}
+
+    - name: "Check firewall – receive-redirects disabled"
+      ansible.builtin.set_fact:
+        fw_receive_redirects: >-
+          {{ config_lines | select('search', "set firewall receive-redirects 'disable'") | list | length > 0 }}
+
+    - name: "Check firewall – ip-src-route disabled"
+      ansible.builtin.set_fact:
+        fw_ip_src_route: >-
+          {{ config_lines | select('search', "set firewall ip-src-route 'disable'") | list | length > 0 }}
+
+    # ------------------------------------------------------------------
+    # 4. SSH hardening checks
+    # ------------------------------------------------------------------
+    - name: "Check SSH – password auth disabled"
+      ansible.builtin.set_fact:
+        ssh_no_password: >-
+          {{ config_lines | select('search', 'set service ssh disable-password-authentication') | list | length > 0 }}
+
+    - name: "Check SSH – port is 22"
+      ansible.builtin.set_fact:
+        ssh_port_ok: >-
+          {{ config_lines | select('search', "set service ssh port '22'") | list | length > 0 }}
+
+    # ------------------------------------------------------------------
+    # 5. NTP checks
+    # ------------------------------------------------------------------
+    - name: "Check NTP servers configured"
+      ansible.builtin.set_fact:
+        ntp_configured: >-
+          {{ config_lines | select('search', 'set system ntp server') | list | length > 0 }}
+
+    # ------------------------------------------------------------------
+    # 6. Syslog checks
+    # ------------------------------------------------------------------
+    - name: "Check syslog global facility"
+      ansible.builtin.set_fact:
+        syslog_ok: >-
+          {{ config_lines | select('search', 'set system syslog global facility') | list | length > 0 }}
+
+    # ------------------------------------------------------------------
+    # 7. Compile compliance report
+    # ------------------------------------------------------------------
+    - name: Build compliance summary
+      ansible.builtin.set_fact:
+        compliance_report:
+          host: "{{ inventory_hostname }}"
+          timestamp: "{{ ansible_date_time.iso8601 | default(lookup('pipe', 'date -u +%Y-%m-%dT%H:%M:%SZ')) }}"
+          checks:
+            firewall_all_ping: "{{ fw_all_ping }}"
+            firewall_broadcast_ping: "{{ fw_broadcast_ping }}"
+            firewall_syn_cookies: "{{ fw_syn_cookies }}"
+            firewall_log_martians: "{{ fw_log_martians }}"
+            firewall_receive_redirects: "{{ fw_receive_redirects }}"
+            firewall_ip_src_route: "{{ fw_ip_src_route }}"
+            ssh_password_disabled: "{{ ssh_no_password }}"
+            ssh_port_22: "{{ ssh_port_ok }}"
+            ntp_configured: "{{ ntp_configured }}"
+            syslog_configured: "{{ syslog_ok }}"
+
+    - name: Display compliance report
+      ansible.builtin.debug:
+        var: compliance_report
+
+    - name: Save compliance report to file
+      delegate_to: localhost
+      ansible.builtin.copy:
+        content: "{{ compliance_report | to_nice_yaml }}"
+        dest: "{{ report_dir }}/{{ inventory_hostname }}_audit.yml"
+        mode: "0644"
+
+    # ------------------------------------------------------------------
+    # 8. Optional remediation
+    # ------------------------------------------------------------------
+    - name: "Remediate – enable firewall all-ping"
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall all-ping enable
+      when: remediate | bool and not (fw_all_ping | bool)
+
+    - name: "Remediate – disable broadcast-ping"
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall broadcast-ping disable
+      when: remediate | bool and not (fw_broadcast_ping | bool)
+
+    - name: "Remediate – enable syn-cookies"
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall syn-cookies enable
+      when: remediate | bool and not (fw_syn_cookies | bool)
+
+    - name: "Remediate – enable log-martians"
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall log-martians enable
+      when: remediate | bool and not (fw_log_martians | bool)
+
+    - name: "Remediate – disable receive-redirects"
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall receive-redirects disable
+      when: remediate | bool and not (fw_receive_redirects | bool)
+
+    - name: "Remediate – disable ip-src-route"
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall ip-src-route disable
+      when: remediate | bool and not (fw_ip_src_route | bool)
+
+    - name: "Remediate – save config"
+      vyos.vyos.vyos_config:
+        save: true
+      when: remediate | bool
+
+    # ------------------------------------------------------------------
+    # 9. Summary
+    # ------------------------------------------------------------------
+    - name: Print audit summary
+      ansible.builtin.debug:
+        msg: >
+          Audit complete for {{ inventory_hostname }}.
+          Reports saved to {{ report_dir }}/{{ inventory_hostname }}_audit.yml.
+          {% if remediate | bool %}Remediation was applied where needed.{% endif %}

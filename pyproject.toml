@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vyos-sentinel"
+version = "1.0.0"
+description = "Automated VyOS network security: monitor, classify, isolate, and audit."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "VyOS Sentinel Team"}]
+
+dependencies = [
+    "paramiko>=3.4,<4",
+    "watchdog>=4.0,<5",
+    "pyyaml>=6.0,<7",
+    "scikit-learn>=1.4,<2",
+    "joblib>=1.3,<2",
+    "numpy>=1.26,<3",
+    "pandas>=2.2,<3",
+    "nornir>=3.4,<4",
+    "nornir-netmiko>=1.0,<2",
+    "nornir-utils>=0.2,<1",
+    "netmiko>=4.3,<5",
+    "jinja2>=3.1,<4",
+    "rich>=13.7,<14",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+]
+
+[project.scripts]
+sentinel-watcher = "src.watcher:main"
+sentinel-judge = "src.judge:main"
+sentinel-surgeon = "src.surgeon:main"
+sentinel-orchestrator = "src.orchestrator:main"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
