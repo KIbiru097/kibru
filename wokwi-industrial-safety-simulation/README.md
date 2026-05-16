@@ -52,7 +52,7 @@ After verification, the system continuously monitors:
 
 1. Go to [https://wokwi.com](https://wokwi.com)
 2. Create a new ESP32 project
-3. Copy `sketch.ino` into the code editor
+3. Copy `wokwi-industrial-safety-simulation.ino` into the code editor
 4. Replace the `diagram.json` with the provided file (click the diagram.json tab)
 5. Add the libraries listed in `libraries.txt` via Library Manager
 6. Press the **Play** button to start the simulation
@@ -102,11 +102,11 @@ Press `D` on the keypad to manually lock the system and return to verification s
 | Water Leak | GPIO 39 |
 | Buzzer | GPIO 16 |
 | Green LED | GPIO 17 |
-| Yellow LED | GPIO 0 |
-| Red LED | GPIO 22 |
-| Servo | GPIO 21 |
-| LCD SDA | GPIO 8 |
-| LCD SCL | GPIO 9 |
+| Yellow LED | GPIO 3 |
+| Red LED | GPIO 10 |
+| Servo | GPIO 11 |
+| LCD SDA | GPIO 21 |
+| LCD SCL | GPIO 22 |
 
 ## Libraries Required
 - `MFRC522` - RFID reader

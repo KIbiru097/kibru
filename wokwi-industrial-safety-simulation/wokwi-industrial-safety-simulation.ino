@@ -58,15 +58,15 @@
  *
  *  LEDs:
  *    Green   -> GPIO 17
- *    Yellow  -> GPIO 0
- *    Red     -> GPIO 22 (note: avoid boot-strapping pins)
+ *    Yellow  -> GPIO 3
+ *    Red     -> GPIO 10
  *
  *  Servo (Door Lock):
- *    SIG     -> GPIO 21
+ *    SIG     -> GPIO 11
  *
  *  I2C LCD (20x4):
- *    SDA     -> GPIO 8  (custom I2C)
- *    SCL     -> GPIO 9  (custom I2C)
+ *    SDA     -> GPIO 21 (default I2C)
+ *    SCL     -> GPIO 22 (default I2C)
  *    Address -> 0x27
  * ============================================================
  */
@@ -118,15 +118,15 @@
 
 // LEDs
 #define GREEN_LED   17
-#define YELLOW_LED  0
-#define RED_LED     22
+#define YELLOW_LED  3
+#define RED_LED     10
 
 // Servo Door Lock
-#define SERVO_PIN  21
+#define SERVO_PIN  11
 
-// I2C LCD
-#define LCD_SDA  8
-#define LCD_SCL  9
+// I2C LCD (default ESP32 I2C pins)
+#define LCD_SDA  21
+#define LCD_SCL  22
 #define LCD_ADDR 0x27
 
 /* ===================== OBJECTS ===================== */
