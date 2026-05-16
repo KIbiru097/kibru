@@ -186,7 +186,7 @@
     ["led_green:C", "esp:GND.1", "black", ["v0"]],
 
     ["led_yellow:A", "r_yellow:1", "gold", ["v0"]],
-    ["r_yellow:2", "esp:36", "gold", ["v0"]],
+    ["r_yellow:2", "esp:7", "gold", ["v0"]],
     ["led_yellow:C", "esp:GND.1", "black", ["v0"]],
 
     ["led_red:A", "r_red:1", "red", ["v0"]],

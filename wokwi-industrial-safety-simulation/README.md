@@ -102,7 +102,7 @@ Press `D` on the keypad to manually lock the system and return to verification s
 | Water Leak | GPIO 39 |
 | Buzzer | GPIO 16 |
 | Green LED | GPIO 17 |
-| Yellow LED | GPIO 36 |
+| Yellow LED | GPIO 7 |
 | Red LED | GPIO 10 |
 | Servo | GPIO 11 |
 | LCD SDA | GPIO 21 |

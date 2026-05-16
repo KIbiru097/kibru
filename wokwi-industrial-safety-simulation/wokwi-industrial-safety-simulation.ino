@@ -58,7 +58,7 @@
  *
  *  LEDs:
  *    Green   -> GPIO 17
- *    Yellow  -> GPIO 36
+ *    Yellow  -> GPIO 7
  *    Red     -> GPIO 10
  *
  *  Servo (Door Lock):
@@ -118,7 +118,7 @@
 
 // LEDs
 #define GREEN_LED   17
-#define YELLOW_LED  36
+#define YELLOW_LED  7
 #define RED_LED     10
 
 // Servo Door Lock
