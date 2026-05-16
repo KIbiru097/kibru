@@ -48,7 +48,7 @@
  *    DOUT    -> GPIO 35 (digital read)
  *
  *  Vibration Sensor (SW-420 button):
- *    DOUT    -> GPIO 3  (with INPUT_PULLUP)
+ *    DOUT    -> GPIO 36 (with external pull-up resistor)
  *
  *  Water Leakage (potentiometer):
  *    SIG     -> GPIO 39 (ADC, input only)
@@ -59,7 +59,7 @@
  *  LEDs:
  *    Green   -> GPIO 17
  *    Yellow  -> GPIO 0
- *    Red     -> GPIO 1
+ *    Red     -> GPIO 3
  *
  *  Servo (Door Lock):
  *    SIG     -> GPIO 15
@@ -107,7 +107,7 @@
 #define FLAME_PIN  35
 
 // Vibration Sensor (button)
-#define VIBRATION_PIN  3
+#define VIBRATION_PIN  36
 
 // Water Leakage (potentiometer analog)
 #define WATER_PIN  39
@@ -118,7 +118,7 @@
 // LEDs
 #define GREEN_LED   17
 #define YELLOW_LED  0
-#define RED_LED     1
+#define RED_LED     3
 
 // Servo Door Lock
 #define SERVO_PIN  15
@@ -602,7 +602,7 @@ void setup() {
   // Initialize pins
   pinMode(GAS_PIN, INPUT);
   pinMode(FLAME_PIN, INPUT);
-  pinMode(VIBRATION_PIN, INPUT_PULLUP);
+  pinMode(VIBRATION_PIN, INPUT);  // GPIO 36 uses external pull-up (no internal pull-up)
   pinMode(WATER_PIN, INPUT);
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(GREEN_LED, OUTPUT);

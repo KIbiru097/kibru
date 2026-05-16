@@ -98,12 +98,12 @@ Press `D` on the keypad to manually lock the system and return to verification s
 | DHT22 Data | GPIO 2 |
 | Gas (MQ-2) | GPIO 34 |
 | Flame Sensor | GPIO 35 |
-| Vibration Btn | GPIO 3 |
+| Vibration Btn | GPIO 36 |
 | Water Leak | GPIO 39 |
 | Buzzer | GPIO 16 |
 | Green LED | GPIO 17 |
 | Yellow LED | GPIO 0 |
-| Red LED | GPIO 1 |
+| Red LED | GPIO 3 |
 | Servo | GPIO 15 |
 | LCD SDA | GPIO 21 |
 | LCD SCL | GPIO 22 |

@@ -121,6 +121,13 @@
       "top": -100,
       "left": -400,
       "attrs": {}
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_vib_pullup",
+      "top": 400,
+      "left": -200,
+      "attrs": { "value": "10000" }
     }
   ],
   "connections": [
@@ -157,8 +164,10 @@
     ["sw_flame:2", "esp:35", "yellow", ["v0"]],
     ["sw_flame:3", "esp:GND.1", "black", ["v0"]],
 
-    ["btn_vibration:1.l", "esp:3", "orange", ["v0"]],
+    ["btn_vibration:1.l", "esp:36", "orange", ["v0"]],
     ["btn_vibration:2.l", "esp:GND.1", "black", ["v0"]],
+    ["r_vib_pullup:1", "esp:36", "orange", ["v0"]],
+    ["r_vib_pullup:2", "esp:3V3", "red", ["v0"]],
 
     ["pot_water:VCC", "esp:3V3", "red", ["v0"]],
     ["pot_water:SIG", "esp:39", "cyan", ["v0"]],
@@ -181,7 +190,7 @@
     ["led_yellow:C", "esp:GND.1", "black", ["v0"]],
 
     ["led_red:A", "r_red:1", "red", ["v0"]],
-    ["r_red:2", "esp:1", "red", ["v0"]],
+    ["r_red:2", "esp:3", "red", ["v0"]],
     ["led_red:C", "esp:GND.1", "black", ["v0"]],
 
     ["servo1:V+", "esp:3V3", "red", ["v0"]],
