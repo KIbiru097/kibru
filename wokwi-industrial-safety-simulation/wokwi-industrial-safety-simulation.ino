@@ -7,7 +7,7 @@
  *  EMPLOYEE VERIFICATION MODULE:
  *    - RFID (MFRC522 / RC522) via SPI
  *    - 4x4 Membrane Keypad
- *    - Fingerprint sensor simulated via push-button
+ *    - Fingerprint simulated via keypad key 'A'
  *
  *  INDUSTRIAL MONITORING MODULE:
  *    - Gas sensor       (MQ-2 analog)
@@ -36,7 +36,7 @@
  *    Rows    -> GPIO 32, 33, 25, 26
  *    Cols    -> GPIO 27, 14, 12, 13
  *
- *  Fingerprint Button -> GPIO 15
+ *  Fingerprint -> Keypad key 'A' (no extra pin)
  *
  *  DHT22:
  *    DATA    -> GPIO 2
@@ -58,11 +58,11 @@
  *
  *  LEDs:
  *    Green   -> GPIO 17
- *    Yellow  -> GPIO 7
- *    Red     -> GPIO 10
+ *    Yellow  -> GPIO 0
+ *    Red     -> GPIO 1
  *
  *  Servo (Door Lock):
- *    SIG     -> GPIO 11
+ *    SIG     -> GPIO 15
  *
  *  I2C LCD (20x4):
  *    SDA     -> GPIO 21 (default I2C)
@@ -95,8 +95,7 @@
 #define KP_C3  12
 #define KP_C4  13
 
-// Fingerprint button
-#define FINGERPRINT_BTN  15
+// Fingerprint: triggered via keypad key 'A' (no dedicated pin)
 
 // DHT22
 #define DHT_PIN  2
@@ -118,11 +117,11 @@
 
 // LEDs
 #define GREEN_LED   17
-#define YELLOW_LED  7
-#define RED_LED     10
+#define YELLOW_LED  0
+#define RED_LED     1
 
 // Servo Door Lock
-#define SERVO_PIN  11
+#define SERVO_PIN  15
 
 // I2C LCD (default ESP32 I2C pins)
 #define LCD_SDA  21
@@ -302,6 +301,8 @@ bool checkRFID() {
 
 /* ===================== KEYPAD CHECK ===================== */
 
+bool lastFingerprintResult = false;
+
 bool checkKeypad() {
   char key = keypad.getKey();
   if (key == 0) return false;
@@ -329,6 +330,11 @@ bool checkKeypad() {
       enteredPin = "";
       return false;
     }
+  } else if (key == 'A') {
+    // 'A' key simulates fingerprint scan
+    Serial.println("[KEYPAD] 'A' pressed - Fingerprint scan triggered");
+    lastFingerprintResult = true;
+    return false;
   } else if (key == '*') {
     // Clear PIN
     enteredPin = "";
@@ -350,17 +356,14 @@ bool checkKeypad() {
   return false;
 }
 
-/* ===================== FINGERPRINT CHECK ===================== */
+/* ===================== FINGERPRINT CHECK (via Keypad 'A') ===================== */
 
 bool checkFingerprint() {
-  if (digitalRead(FINGERPRINT_BTN) == LOW) {
-    delay(50);  // debounce
-    if (digitalRead(FINGERPRINT_BTN) == LOW) {
-      Serial.println("[FINGERPRINT] Valid fingerprint detected!");
-      return true;
-    }
-  }
-  return false;
+  // Fingerprint is simulated by pressing 'A' on the keypad
+  // The keypad is already polled in checkKeypad(), so we use a flag
+  bool result = lastFingerprintResult;
+  lastFingerprintResult = false;
+  return result;
 }
 
 /* ===================== SENSOR READING ===================== */
@@ -461,7 +464,7 @@ void updateLCDLocked() {
   lcd.setCursor(0, 2);
   lcd.print("PIN: ");
   lcd.setCursor(0, 3);
-  lcd.print("Or Press Fingerprint");
+  lcd.print("Or 'A' = Fingerprint");
 }
 
 void updateLCDVerified() {
@@ -597,7 +600,6 @@ void setup() {
   Serial.println("[INIT] DHT22 initialized");
 
   // Initialize pins
-  pinMode(FINGERPRINT_BTN, INPUT_PULLUP);
   pinMode(GAS_PIN, INPUT);
   pinMode(FLAME_PIN, INPUT);
   pinMode(VIBRATION_PIN, INPUT_PULLUP);
@@ -619,7 +621,7 @@ void setup() {
   Serial.println("[SYSTEM] Waiting for employee verification...");
   Serial.println("  - Scan RFID card");
   Serial.println("  - Enter PIN on keypad (# to submit, * to clear)");
-  Serial.println("  - Press fingerprint button");
+  Serial.println("  - Press 'A' on keypad for fingerprint scan");
 
   delay(2000);
 

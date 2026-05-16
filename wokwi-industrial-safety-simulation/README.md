@@ -11,7 +11,7 @@ Employees must authenticate using **any one** of three methods before the monito
 |--------|-----------|-------------|
 | RFID | MFRC522 (RC522) | Scan an authorized RFID card |
 | Keypad | 4x4 Membrane Keypad | Enter PIN `1234` then press `#` (`*` to clear) |
-| Fingerprint | Push Button (simulated) | Press the green "Fingerprint" button |
+| Fingerprint | Keypad key 'A' (simulated) | Press 'A' on the keypad |
 
 ### Industrial Monitoring Module
 After verification, the system continuously monitors:
@@ -63,7 +63,7 @@ After verification, the system continuously monitors:
 When the simulation starts, you'll see "FACTORY SECURE" on the LCD. Authenticate using any method:
 - **RFID**: Click the RFID card icon to scan (default authorized UID: `AABBCCDD`)
 - **Keypad**: Type `1234` then press `#`
-- **Fingerprint**: Click the green button
+- **Fingerprint**: Press `A` on the keypad
 
 ### Step 2: Monitor Dashboard
 After verification, the door servo opens and the LCD cycles through 4 pages:
@@ -94,7 +94,7 @@ Press `D` on the keypad to manually lock the system and return to verification s
 | RFID RST | GPIO 4 |
 | Keypad Rows | GPIO 32, 33, 25, 26 |
 | Keypad Cols | GPIO 27, 14, 12, 13 |
-| Fingerprint Btn | GPIO 15 |
+| Fingerprint | Keypad 'A' key (no extra pin) |
 | DHT22 Data | GPIO 2 |
 | Gas (MQ-2) | GPIO 34 |
 | Flame Sensor | GPIO 35 |
@@ -102,9 +102,9 @@ Press `D` on the keypad to manually lock the system and return to verification s
 | Water Leak | GPIO 39 |
 | Buzzer | GPIO 16 |
 | Green LED | GPIO 17 |
-| Yellow LED | GPIO 7 |
-| Red LED | GPIO 10 |
-| Servo | GPIO 11 |
+| Yellow LED | GPIO 0 |
+| Red LED | GPIO 1 |
+| Servo | GPIO 15 |
 | LCD SDA | GPIO 21 |
 | LCD SCL | GPIO 22 |
 
