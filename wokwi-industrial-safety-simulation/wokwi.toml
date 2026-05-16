@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = "wokwi-industrial-safety-simulation.ino"
+elf = ""
