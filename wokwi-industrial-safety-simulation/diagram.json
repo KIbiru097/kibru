@@ -166,8 +166,7 @@
     ["sw_flame:2", "esp:35", "yellow", ["v0"]],
     ["sw_flame:3", "esp:GND.1", "black", ["v0"]],
 
-    ["btn_vibration:1.l", "esp:36", "orange", ["v0"]],
-    ["btn_vibration:1.r", "esp:3V3", "red", ["v0"]],
+    ["btn_vibration:1.l", "esp:3", "orange", ["v0"]],
     ["btn_vibration:2.l", "esp:GND.1", "black", ["v0"]],
 
     ["pot_water:VCC", "esp:3V3", "red", ["v0"]],
@@ -187,7 +186,7 @@
     ["led_green:C", "esp:GND.1", "black", ["v0"]],
 
     ["led_yellow:A", "r_yellow:1", "gold", ["v0"]],
-    ["r_yellow:2", "esp:3", "gold", ["v0"]],
+    ["r_yellow:2", "esp:36", "gold", ["v0"]],
     ["led_yellow:C", "esp:GND.1", "black", ["v0"]],
 
     ["led_red:A", "r_red:1", "red", ["v0"]],

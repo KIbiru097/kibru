@@ -48,7 +48,7 @@
  *    DOUT    -> GPIO 35 (digital read)
  *
  *  Vibration Sensor (SW-420 button):
- *    DOUT    -> GPIO 36 (input only)
+ *    DOUT    -> GPIO 3  (with INPUT_PULLUP)
  *
  *  Water Leakage (potentiometer):
  *    SIG     -> GPIO 39 (ADC, input only)
@@ -58,7 +58,7 @@
  *
  *  LEDs:
  *    Green   -> GPIO 17
- *    Yellow  -> GPIO 3
+ *    Yellow  -> GPIO 36
  *    Red     -> GPIO 10
  *
  *  Servo (Door Lock):
@@ -108,7 +108,7 @@
 #define FLAME_PIN  35
 
 // Vibration Sensor (button)
-#define VIBRATION_PIN  36
+#define VIBRATION_PIN  3
 
 // Water Leakage (potentiometer analog)
 #define WATER_PIN  39
@@ -118,7 +118,7 @@
 
 // LEDs
 #define GREEN_LED   17
-#define YELLOW_LED  3
+#define YELLOW_LED  36
 #define RED_LED     10
 
 // Servo Door Lock
@@ -163,7 +163,7 @@ const float  TEMP_DANGER       = 55.0;     // Celsius
 const float  HUMIDITY_LOW      = 20.0;     // % RH
 const float  HUMIDITY_HIGH     = 85.0;     // % RH
 const int    WATER_THRESHOLD   = 2000;     // ADC value for water detected
-const int    VIBRATION_ACTIVE  = HIGH;     // SW-420: HIGH = vibration
+const int    VIBRATION_ACTIVE  = LOW;      // Button pressed = LOW (INPUT_PULLUP)
 
 // Timing
 const unsigned long SENSOR_READ_INTERVAL = 2000;  // ms
@@ -600,7 +600,7 @@ void setup() {
   pinMode(FINGERPRINT_BTN, INPUT_PULLUP);
   pinMode(GAS_PIN, INPUT);
   pinMode(FLAME_PIN, INPUT);
-  pinMode(VIBRATION_PIN, INPUT);
+  pinMode(VIBRATION_PIN, INPUT_PULLUP);
   pinMode(WATER_PIN, INPUT);
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(GREEN_LED, OUTPUT);
