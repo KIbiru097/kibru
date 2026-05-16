@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "author": "Devin AI",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "board-mfrc522",
+      "id": "rfid1",
+      "top": -250,
+      "left": -400,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-membrane-keypad",
+      "id": "keypad1",
+      "top": -350,
+      "left": 250,
+      "attrs": { "keys": "123A456B789C*0#D" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_fingerprint",
+      "top": -100,
+      "left": 350,
+      "attrs": { "color": "green", "label": "Fingerprint" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": 250,
+      "left": -400,
+      "attrs": { "temperature": "25", "humidity": "50" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_gas",
+      "top": 250,
+      "left": -200,
+      "attrs": { "value": "0" }
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "sw_flame",
+      "top": 350,
+      "left": -400,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_vibration",
+      "top": 350,
+      "left": -200,
+      "attrs": { "color": "red", "label": "Vibration" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_water",
+      "top": 350,
+      "left": 0,
+      "attrs": { "value": "0" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": -300,
+      "left": -150,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 250,
+      "left": 250,
+      "attrs": { "volume": "0.1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": 150,
+      "left": 300,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_yellow",
+      "top": 150,
+      "left": 350,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": 150,
+      "left": 400,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_green",
+      "top": 200,
+      "left": 300,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_yellow",
+      "top": 200,
+      "left": 350,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_red",
+      "top": 200,
+      "left": 400,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo1",
+      "top": -100,
+      "left": -400,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    ["esp:TX", "$serialMonitor:RX", "", []],
+    ["esp:RX", "$serialMonitor:TX", "", []],
+
+    ["rfid1:SDA", "esp:5", "blue", ["v0"]],
+    ["rfid1:SCK", "esp:18", "yellow", ["v0"]],
+    ["rfid1:MOSI", "esp:23", "orange", ["v0"]],
+    ["rfid1:MISO", "esp:19", "purple", ["v0"]],
+    ["rfid1:RST", "esp:4", "brown", ["v0"]],
+    ["rfid1:GND", "esp:GND.1", "black", ["v0"]],
+    ["rfid1:3V3", "esp:3V3", "red", ["v0"]],
+
+    ["keypad1:R1", "esp:32", "green", ["v0"]],
+    ["keypad1:R2", "esp:33", "green", ["v0"]],
+    ["keypad1:R3", "esp:25", "green", ["v0"]],
+    ["keypad1:R4", "esp:26", "green", ["v0"]],
+    ["keypad1:C1", "esp:27", "blue", ["v0"]],
+    ["keypad1:C2", "esp:14", "blue", ["v0"]],
+    ["keypad1:C3", "esp:12", "blue", ["v0"]],
+    ["keypad1:C4", "esp:13", "blue", ["v0"]],
+
+    ["btn_fingerprint:1.l", "esp:15", "green", ["v0"]],
+    ["btn_fingerprint:2.l", "esp:GND.1", "black", ["v0"]],
+
+    ["dht1:VCC", "esp:3V3", "red", ["v0"]],
+    ["dht1:SDA", "esp:2", "green", ["v0"]],
+    ["dht1:GND", "esp:GND.1", "black", ["v0"]],
+
+    ["pot_gas:VCC", "esp:3V3", "red", ["v0"]],
+    ["pot_gas:SIG", "esp:34", "orange", ["v0"]],
+    ["pot_gas:GND", "esp:GND.1", "black", ["v0"]],
+
+    ["sw_flame:1", "esp:3V3", "red", ["v0"]],
+    ["sw_flame:2", "esp:35", "yellow", ["v0"]],
+    ["sw_flame:3", "esp:GND.1", "black", ["v0"]],
+
+    ["btn_vibration:1.l", "esp:36", "orange", ["v0"]],
+    ["btn_vibration:2.l", "esp:GND.1", "black", ["v0"]],
+
+    ["pot_water:VCC", "esp:3V3", "red", ["v0"]],
+    ["pot_water:SIG", "esp:39", "cyan", ["v0"]],
+    ["pot_water:GND", "esp:GND.1", "black", ["v0"]],
+
+    ["lcd1:GND", "esp:GND.1", "black", ["v0"]],
+    ["lcd1:VCC", "esp:3V3", "red", ["v0"]],
+    ["lcd1:SDA", "esp:8", "green", ["v0"]],
+    ["lcd1:SCL", "esp:9", "yellow", ["v0"]],
+
+    ["bz1:1", "esp:16", "purple", ["v0"]],
+    ["bz1:2", "esp:GND.1", "black", ["v0"]],
+
+    ["led_green:A", "r_green:1", "green", ["v0"]],
+    ["r_green:2", "esp:17", "green", ["v0"]],
+    ["led_green:C", "esp:GND.1", "black", ["v0"]],
+
+    ["led_yellow:A", "r_yellow:1", "gold", ["v0"]],
+    ["r_yellow:2", "esp:0", "gold", ["v0"]],
+    ["led_yellow:C", "esp:GND.1", "black", ["v0"]],
+
+    ["led_red:A", "r_red:1", "red", ["v0"]],
+    ["r_red:2", "esp:22", "red", ["v0"]],
+    ["led_red:C", "esp:GND.1", "black", ["v0"]],
+
+    ["servo1:V+", "esp:3V3", "red", ["v0"]],
+    ["servo1:GND", "esp:GND.1", "black", ["v0"]],
+    ["servo1:PWM", "esp:21", "orange", ["v0"]]
+  ],
+  "serialMonitor": {
+    "display": "auto",
+    "newline": "lf"
+  }
+}
