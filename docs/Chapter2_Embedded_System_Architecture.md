@@ -73,7 +73,7 @@ The architecture of an embedded system is centered around its **microcontroller 
 
 ### 2.3 Peripheral Integration
 
-```
+```text
 Sensors (Input) --> Processor (Processing) --> Actuators (Output)
        ^                                            |
        |_____________ Feedback Loop ________________|
@@ -141,7 +141,7 @@ The processor is the central component of the embedded system around which the w
 - **Von Neumann bottleneck**: limited by single bus bandwidth
 - Solution: Cache memory
 
-```
+```text
 +-------+     Single Bus     +--------+
 |  CPU  | <================> | Memory |
 +-------+                   | (Data + |
@@ -157,7 +157,7 @@ The processor is the central component of the embedded system around which the w
 - Data memory accessed more frequently than program memory
 - Potential memory block access imbalance
 
-```
+```text
 +-------+     Program Bus    +----------+
 |       | <================> | Program  |
 |  CPU  |                    | Memory   |
@@ -189,7 +189,7 @@ The processor is the central component of the embedded system around which the w
 
 Pipelining allows multiple instructions to be processed simultaneously at different stages:
 
-```
+```text
 Stage 1: Fetch  | I1 | I2 | I3 | I4 |
 Stage 2: Decode |    | I1 | I2 | I3 |
 Stage 3: Execute|    |    | I1 | I2 |
@@ -320,7 +320,7 @@ A microcontroller is a functional **computer system-on-a-chip** containing a pro
 
 ### 9.1 Overview
 
-- **AT** = Atmel, **mega** = mega series, **32** = number of ports
+- **AT** = Atmel, **mega** = mega series, **32** = 32 KB flash memory (flash size class)
 - Low-power **CMOS 8-bit** microcontroller
 - Based on **AVR enhanced RISC architecture**
 - Manufactured by Atmel Corporation (founded 1984)
@@ -437,7 +437,7 @@ The table of memory locations holding ISR addresses is called the **Interrupt Ve
 6. Upon RETI, pops the PC address from the stack
 7. Resumes execution from the interrupted location
 
-```
+```text
 Normal Execution --> Interrupt Occurs --> Save Context (Push PC to Stack)
     --> Jump to IVT --> Get ISR Address --> Execute ISR
     --> RETI --> Pop PC from Stack --> Resume Normal Execution

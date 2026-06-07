@@ -68,7 +68,7 @@ A real-time system is an aggregate of computers, I/O devices, and application-sp
 
 ### Timing Diagram Relationships
 
-```
+```text
 Release Time          Completion Time
     |                      |
     |--- Execution Time ---|
@@ -98,7 +98,7 @@ The overall structure of a Real-Time System consists of:
 
 The data flow through a real-time system follows this path:
 
-```
+```text
 Physical World --> Sensor --> Signal Conditioning (Input) --> Interface Unit (ADC)
     --> Computer/RTOS --> Interface Unit (DAC) --> Signal Conditioning (Output)
     --> Actuator --> Physical World

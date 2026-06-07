@@ -95,13 +95,14 @@
 
 ### 4.2 System Comparison
 
-| Characteristic | Hard RTS | Soft RTS |
-|---------------|----------|----------|
-| Response Time | Hard-required | Soft-required |
-| Peak Load Performance | Predictable | Degraded |
-| Safety Critical | Yes | No |
-| Size of Data | Small | Large |
-| Error Detection | Autonomous | User-assisted |
+| Characteristic | Hard RTS | Firm RTS | Soft RTS |
+|---------------|----------|----------|----------|
+| Response Time | Hard-required | Firm-required | Soft-required |
+| Peak Load Performance | Predictable | Predictable | Degraded |
+| Safety Critical | Yes | Sometimes | No |
+| Size of Data | Small | Small/Medium | Large |
+| Error Detection | Autonomous | Autonomous | User-assisted |
+| Late Result Value | Catastrophic | Useless (no value) | Reduced value |
 
 ---
 
@@ -167,7 +168,7 @@
 
 ### 7.2 Interrupt Execution Flow
 
-```
+```text
 1. Save context (push PC to stack)
 2. Look up ISR address in Interrupt Vector Table
 3. Execute ISR
