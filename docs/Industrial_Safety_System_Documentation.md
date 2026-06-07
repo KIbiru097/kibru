@@ -133,7 +133,7 @@ The Industrial Safety Monitoring System is a **Hard/Firm Real-Time System** desi
 | **Sensor → Conditioning → Interface → Computer** | DHT22 → digital protocol → GPIO4 → ESP32 processing |
 | **Actuator** | Relay controls cooling system; buzzer provides audible alerts |
 | **Memory Organization** | EEPROM (1024 bytes) for persistent storage of RFID cards and system state |
-| **Interrupt Handling** | RFID detection uses SPI interrupt mechanism; timer-based polling for sensors |
+| **Interrupt Handling** | RFID detection via SPI polling every 200 ms; timer-based polling for sensors |
 | **Communication Protocols** | USART (Serial debug), SPI (RFID), I2C (LCD), WiFi (TCP/IP for MQTT) |
 | **System-on-Chip (SoC)** | ESP32 integrates CPU, WiFi, Bluetooth, ADC, SPI, I2C, UART on single chip |
 
@@ -146,11 +146,11 @@ The Industrial Safety Monitoring System is a **Hard/Firm Real-Time System** desi
 | **Determinism** | Fixed intervals ensure predictable system behavior |
 | **Priority-Based Scheduling** | RFID checked every 200ms (high priority), sensors every 2000ms, MQTT every 5000ms |
 | **Process States** | Tasks cycle between Ready (timer elapsed) → Running (executing) → Waiting (timer not elapsed) |
-| **Context Switching** | When RFID interrupt occurs, current sensor task is implicitly preempted |
+| **Context Switching** | When RFID polling timer elapses, current sensor task yields and RFID executes next |
 | **Inter-Task Communication** | Global variables serve as shared memory between tasks (sensor values shared with alert system) |
 | **Semaphores/Mutex concept** | LCD access is serialized — only one function updates LCD at a time |
 | **Timer Services** | millis() provides system clock for all timing decisions |
-| **Interrupt Handlers** | SPI interrupt for RFID card detection |
+| **Interrupt Handlers** | SPI polling (every 200 ms) for RFID card detection — no hardware IRQ line used |
 | **Memory Management** | Static allocation (EEPROM address map, fixed-size arrays) avoids dynamic allocation issues |
 | **Process Control Block** | Each task has state: last execution time, current values, enabled/disabled flags |
 | **Scheduling Algorithm** | Cooperative round-robin with priority differentiation via different periods |
@@ -361,7 +361,9 @@ GND    ─── Common Ground (all devices)
 | **Gas (MQ-2)** | 1000 | 2000 | < 1000 |
 | **Flame** | 2000 | 3000 | < 2000 |
 | **Water Leak** | 1500 | 2500 | < 1500 |
-| **Temperature** | 40°C | 50°C | < 30°C |
+| **Temperature** | 30–39°C | 40°C | 50°C |
+
+> **Note:** Temperature ranges — Normal: < 30°C, Warning: 30–39°C, Critical: 40–49°C, Emergency: ≥ 50°C.
 
 ---
 
@@ -578,7 +580,7 @@ RFID Card Detected
 | 8–11 | 4 bytes | Total Sensor Faults |
 | 12 | 1 byte | Magic Value (0xA5) |
 | 18 | 1 byte | Authorized Card Count |
-| 20–1023 | Variable | RFID Records (64 bytes each) |
+| 20–699 | Variable | RFID Records (64 bytes each, max 10 cards) |
 | 700 | 1 byte | Fail-Safe Mode Flag |
 
 Each RFID record contains: UID (15 chars) + Name (19 chars) + Role (14 chars) + Flags + Access Level + Last Access Time + Access Count.
@@ -847,7 +849,7 @@ The sensor task's **context** (which sensors have been read, accumulated values)
 | **Fault Tolerance** | "Remain operational despite hardware errors" | Fail-safe mode, sensor default values, auto-reconnect |
 | **High Availability** | "Zero-downtime, mission-critical environments" | System never stops monitoring even in fail-safe mode |
 | **Timer Services** | "System clocks to measure elapsed time" | millis() function provides timing for all tasks |
-| **Interrupt Handlers** | "Manages hardware interrupts for time-critical functions" | SPI interrupt mechanism for RFID detection |
+| **Interrupt Handlers** | "Manages hardware interrupts for time-critical functions" | SPI polling every 200 ms for RFID detection (no IRQ line connected) |
 
 ### 18.2 RTOS Components in the System (Chapter 3)
 
@@ -1002,7 +1004,7 @@ The complete firmware source code for the Industrial Safety Monitoring System is
 | Setup | 946–1012 | Hardware initialization |
 | Main Loop | 1014–1065 | Task scheduler |
 
-*(Full source code is included in the attached file: `pasted-1780861719639.md`)*
+*(Full source code is provided in the project repository as `sketch.ino`)*
 
 ---
 

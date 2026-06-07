@@ -241,7 +241,7 @@ When placed in memory, a program becomes a process with four sections:
 |---------|---------|
 | **Stack** | Temporary data: function parameters, return addresses, local variables |
 | **Heap** | Dynamically allocated memory during execution |
-| **Text** | Program counter value and processor register contents |
+| **Text** | Executable code (program instructions) |
 | **Data** | Global and static variables |
 
 ### 6.3 Process Attributes
@@ -406,7 +406,9 @@ Exchange of data between two or more separate, independent processes/threads usi
 | **Mutexes** | Binary locks protecting critical code sections | Yes (binary) |
 | **Shared Memory** | Direct memory access between processes | No (needs sync) |
 | **Pipes** | Unidirectional data flow between processes | Yes |
-| **Event Flags** | Signal occurrence of events between tasks | No |
+| **Event Flags** | Signal occurrence of events between tasks | Optional (API-dependent) |
+
+> **Note:** Tasks can block while waiting on event flags unless a non-blocking/polling API variant is used. The blocking behavior depends on the specific RTOS implementation and API call.
 
 ### 9.3 Synchronization Challenges
 
