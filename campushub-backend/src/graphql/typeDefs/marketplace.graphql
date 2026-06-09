@@ -1,0 +1,47 @@
+type Product {
+  id: ID!
+  sellerId: ID!
+  title: String!
+  description: String
+  price: Float!
+  condition: String!
+  status: String!
+  imageUrl: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ProductResponse {
+  success: Boolean!
+  message: String!
+  product: Product
+}
+
+input CreateProductInput {
+  title: String!
+  description: String
+  price: Float!
+  condition: String!
+  imageUrl: String
+}
+
+input UpdateProductInput {
+  title: String
+  description: String
+  price: Float
+  condition: String
+  status: String
+  imageUrl: String
+}
+
+extend type Query {
+  products: [Product!]!
+  product(id: ID!): Product
+  myProducts: [Product!]!
+}
+
+extend type Mutation {
+  createProduct(input: CreateProductInput!): ProductResponse!
+  updateProduct(id: ID!, input: UpdateProductInput!): ProductResponse!
+  deleteProduct(id: ID!): ProductResponse!
+}

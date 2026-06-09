@@ -1,0 +1,32 @@
+type VerificationStatus {
+  status: String!
+  studentId: String
+  university: String
+  department: String
+  verifiedAt: String
+  message: String!
+}
+
+type VerificationResult {
+  isValid: Boolean!
+  studentId: String
+  university: String
+  department: String
+  status: String!
+  message: String!
+}
+
+type FileUploadResult {
+  url: String!
+  filename: String!
+  mimetype: String!
+  size: Int!
+}
+
+extend type Query {
+  verificationStatus: VerificationStatus!
+}
+
+extend type Mutation {
+  verifyStudentId(imageUrl: String!): VerificationResult!
+}
