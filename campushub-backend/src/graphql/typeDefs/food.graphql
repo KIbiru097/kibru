@@ -1,0 +1,53 @@
+type FoodItem {
+  id: ID!
+  restaurantId: ID!
+  name: String!
+  description: String
+  price: Float!
+  discountPrice: Float
+  isAvailable: Boolean!
+  category: String
+  imageUrl: String
+  preparationTime: Int
+  createdAt: String!
+  updatedAt: String!
+}
+
+type FoodItemResponse {
+  success: Boolean!
+  message: String!
+  foodItem: FoodItem
+}
+
+input CreateFoodItemInput {
+  restaurantId: ID!
+  name: String!
+  description: String
+  price: Float!
+  discountPrice: Float
+  category: String
+  imageUrl: String
+  preparationTime: Int
+}
+
+input UpdateFoodItemInput {
+  name: String
+  description: String
+  price: Float
+  discountPrice: Float
+  isAvailable: Boolean
+  category: String
+  imageUrl: String
+  preparationTime: Int
+}
+
+extend type Query {
+  foodItems(restaurantId: ID, category: String, isAvailable: Boolean): [FoodItem!]!
+  foodItem(id: ID!): FoodItem
+}
+
+extend type Mutation {
+  createFoodItem(input: CreateFoodItemInput!): FoodItemResponse!
+  updateFoodItem(id: ID!, input: UpdateFoodItemInput!): FoodItemResponse!
+  deleteFoodItem(id: ID!): FoodItemResponse!
+}

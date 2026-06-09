@@ -1,0 +1,21 @@
+type Payment {
+  id: ID!
+  userId: ID!
+  amount: Float!
+  currency: String!
+  paymentMethod: String!
+  paymentGateway: String
+  transactionRef: String!
+  status: String!
+  createdAt: String!
+}
+
+extend type Query {
+  myPayments: [Payment!]!
+  payment(id: ID!): Payment
+}
+
+extend type Mutation {
+  initiatePayment(orderId: ID!, paymentMethod: String!): Payment!
+  verifyPayment(transactionRef: String!): Payment!
+}

@@ -1,0 +1,23 @@
+type Service {
+  id: ID!
+  providerId: ID!
+  title: String!
+  description: String
+  price: Float!
+  category: String!
+  status: String!
+  rating: Float
+  createdAt: String!
+}
+
+extend type Query {
+  services(category: String): [Service!]!
+  service(id: ID!): Service
+  myServices: [Service!]!
+}
+
+extend type Mutation {
+  createService(title: String!, description: String, price: Float!, category: String!): Service!
+  updateService(id: ID!, title: String, description: String, price: Float): Service!
+  deleteService(id: ID!): Boolean!
+}

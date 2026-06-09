@@ -1,0 +1,21 @@
+type Delivery {
+  id: ID!
+  orderId: ID!
+  deliveryPersonId: ID!
+  status: String!
+  pickupLocation: String!
+  deliveryLocation: String!
+  assignedAt: String!
+  pickedUpAt: String
+  deliveredAt: String
+}
+
+extend type Query {
+  myDeliveries: [Delivery!]!
+  pendingDeliveries: [Delivery!]!
+}
+
+extend type Mutation {
+  assignDelivery(orderId: ID!, deliveryPersonId: ID!): Delivery!
+  updateDeliveryStatus(deliveryId: ID!, status: String!): Delivery!
+}
